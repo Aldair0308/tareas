@@ -12,16 +12,6 @@ export const Hoy: React.FC = () => {
   const modalIdView = "tareasModal";
   const modalIdEdit = "tareasUpdateModal";
 
-  const formatDate = (dateString: string) => {
-    const fecha = new Date(dateString);
-    const opciones: Intl.DateTimeFormatOptions = {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-    };
-    return fecha.toLocaleDateString("es-ES", opciones);
-  };
-
   const getTodayTasks = (tasks) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Reset time to the start of the day
