@@ -115,7 +115,7 @@ export function TareasUpdateModal({ task }) {
 
     try {
       const response = await fetch(
-        `http://192.168.100.169:3000/api/tasks/${task._id}`,
+        `https://api-tareas-production.up.railway.app/api/tasks/${task._id}`,
         {
           method: "PATCH",
           headers: {

@@ -1,1 +1,1 @@
-export let UrlTareas = "http://192.168.100.169:3000/api/tasks";
+export let UrlTareas = "https://api-tareas-production.up.railway.app/api/tasks";

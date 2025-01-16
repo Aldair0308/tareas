@@ -36,7 +36,9 @@ export const Hoy: React.FC = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await fetch("http://192.168.100.169:3000/api/tasks");
+        const response = await fetch(
+          "https://api-tareas-production.up.railway.app/api/tasks"
+        );
         if (!response.ok) throw new Error("Error fetching tasks");
         const data = await response.json();
         let dataFilted = data.filter((task) => task.status !== "archived");
