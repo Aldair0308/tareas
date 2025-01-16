@@ -14,7 +14,7 @@ export function TareasFormModal() {
       sheetHeight="95%" // Altura del modal
       animationDuration={600} // Duración de la animación
     >
-      <div style={{ padding: "1rem", marginTop: -38 }}>
+      <div style={{ padding: "1rem" }}>
         <FormCreateTask closeModal={() => closeModal(modalId)} />
       </div>
     </ModalAnimation>

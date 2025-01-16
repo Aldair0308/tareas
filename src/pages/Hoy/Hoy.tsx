@@ -117,6 +117,15 @@ export const Hoy: React.FC = () => {
               }}
             >
               <h1 style={{ margin: -5, fontSize: 70 }}>{task.icon || "📌"}</h1>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                marginLeft: 65,
+                marginTop: -95,
+              }}
+            >
               <h1
                 style={{
                   color: getStatusColor(task.status),
@@ -126,37 +135,37 @@ export const Hoy: React.FC = () => {
               >
                 {task.title}
               </h1>
+              <h1
+                style={{
+                  color: getStatusColor(task.status),
+                  margin: -6,
+                  marginLeft: 25,
+                }}
+              >
+                {`${task.dueHours[0]}`}
+              </h1>
+              <p style={{ marginBottom: "0.5rem", color: "#333" }}>
+                {task.description}
+              </p>
+              <p
+                style={{
+                  marginTop: "auto",
+                  fontWeight: "bold",
+                  color: getStatusColor(task.status),
+                }}
+              >
+                Estado:{" "}
+                {task.status === "pending"
+                  ? "Pendiente"
+                  : task.status === "in-progress"
+                  ? "En Progreso"
+                  : "Completada"}
+              </p>
             </div>
-            <h1
-              style={{
-                color: getStatusColor(task.status),
-                margin: -6,
-                marginLeft: 25,
-              }}
-            >
-              {`${task.dueHours[0]}`}
-            </h1>
 
-            <p style={{ marginBottom: "0.5rem", color: "#333" }}>
-              {task.description}
-            </p>
-            <p
-              style={{
-                marginTop: "auto",
-                fontWeight: "bold",
-                color: getStatusColor(task.status),
-              }}
-            >
-              Estado:{" "}
-              {task.status === "pending"
-                ? "Pendiente"
-                : task.status === "in-progress"
-                ? "En Progreso"
-                : "Completada"}
-            </p>
-            <small>{`${task.dueHours[0]} - ${formatDate(
+            {/* <small>{`${task.dueHours[0]} - ${formatDate(
               task.dueDates[0]
-            )}`}</small>
+            )}`}</small> */}
           </div>
         ))
       ) : (
