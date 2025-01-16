@@ -78,14 +78,6 @@ export function TareasUpdateModal({ task }) {
     });
   };
 
-  const handleHourChange = (e) => {
-    const { value } = e.target;
-    setFormData({
-      ...formData,
-      dueHours: [...formData.dueHours, value],
-    });
-  };
-
   const handleIconSelect = (icon) => {
     setFormData({ ...formData, icon });
     setIsIconPickerOpen(false);

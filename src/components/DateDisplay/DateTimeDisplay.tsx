@@ -6,7 +6,6 @@ const DateTimeDisplay: React.FC = () => {
 
   const getWeekDays = () => {
     const week: { day: string; date: number; isToday: boolean }[] = [];
-    const currentDay = fullDate.getDay();
     const currentDate = fullDate.getDate();
 
     for (let i = -3; i <= 3; i++) {

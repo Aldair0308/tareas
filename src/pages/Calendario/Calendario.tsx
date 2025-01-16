@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import Diario from "../../components/Diario/Diario.tsx";
-import { useModal } from "../../components/Modal/UseModal.tsx";
 import { TareasFormModal } from "../Tareas/TareasFormModal.tsx";
 import "./Calendario.css";
 import CalendarioComponet from "../../components/Calendar/Calendario.tsx";
 
 export const Calendario = () => {
-  const { openModal } = useModal(); // Hook personalizado para manejar el modal
   const [activeView, setActiveView] = useState<"calendario" | "diario">(
     "diario" // Cambiar el valor predeterminado a "diario"
   );
