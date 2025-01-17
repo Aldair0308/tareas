@@ -301,7 +301,7 @@ export function TareasUpdateModal({ task }) {
                 <option value="pending">Pendiente</option>
                 <option value="in-progress">En Progreso</option>
                 <option value="completed">Completada</option>
-                <option value="archived">Archivada</option>
+                {/* <option value="archived">Archivada</option> */}
               </select>
             </div>
 
