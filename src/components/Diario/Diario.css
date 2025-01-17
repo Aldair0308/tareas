@@ -5,6 +5,7 @@
   padding: 10px;
   overflow-y: auto;
   height: 100vh; /* Altura completa para scroll */
+  margin-bottom: 80px;
 }
 
 .dia-section {

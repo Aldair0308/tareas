@@ -31,7 +31,9 @@ export const Hoy: React.FC = () => {
         );
         if (!response.ok) throw new Error("Error fetching tasks");
         const data = await response.json();
-        let dataFilted = data.filter((task) => task.status !== "archived");
+        let dataFilted = data.filter(
+          (task) => task.status !== "archived" && task.status !== "completed"
+        );
         setTasks(dataFilted);
       } catch (error) {
         console.error("Error fetching tasks:", error);

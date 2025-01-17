@@ -66,6 +66,10 @@ export function FormCreateTask({ closeModal }: FormCreateTaskProps) {
     "👓",
     "🛁",
     "🛏️",
+    "⌨️",
+    "💻",
+    "❤️",
+    "💑",
   ]; // Lista de emojis para seleccionar
 
   const handleInputChange = (

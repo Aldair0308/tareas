@@ -48,6 +48,10 @@ export function TareasUpdateModal({ task }) {
     "👓",
     "🛁",
     "🛏️",
+    "⌨️",
+    "💻",
+    "❤️",
+    "💑",
   ];
 
   useEffect(() => {
