@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { emojiList } from "../../services/icons.ts";
 
 interface FormCreateTaskProps {
   closeModal: () => void;
@@ -36,42 +37,6 @@ export function FormCreateTask({ closeModal }: FormCreateTaskProps) {
     "domingo",
   ];
 
-  const emojiList = [
-    "✨",
-    "🌟",
-    "🔥",
-    "💪",
-    "🎉",
-    "🎶",
-    "🚀",
-    "☀️",
-    "🍕",
-    "🎨",
-    "📚",
-    "🧘‍♂️",
-    "🏃‍♂️",
-    "⚽",
-    "🎵",
-    "📅",
-    "🛠️",
-    "🏋️‍♂️",
-    "🥗",
-    "☕",
-    "🚴‍♂️",
-    "💼",
-    "🎮",
-    "📷",
-    "🧺",
-    "👕",
-    "👓",
-    "🛁",
-    "🛏️",
-    "⌨️",
-    "💻",
-    "❤️",
-    "💑",
-  ]; // Lista de emojis para seleccionar
-
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -94,12 +59,15 @@ export function FormCreateTask({ closeModal }: FormCreateTaskProps) {
       });
     }
   };
-
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
+
+    // Crear una nueva fecha basada en la entrada del usuario sin modificar la zona horaria
+    const selectedDate = new Date(value + "T00:00:00"); // Agregar hora fija para evitar ajustes de zona horaria
+
     setFormData({
       ...formData,
-      dueDates: [...formData.dueDates, new Date(value).toISOString()],
+      dueDates: [...formData.dueDates, selectedDate.toISOString()],
     });
   };
 
@@ -139,7 +107,6 @@ export function FormCreateTask({ closeModal }: FormCreateTaskProps) {
 
       const responseData = await response.json();
       console.log("Tarea creada exitosamente:", responseData);
-      alert("Tarea creada exitosamente");
       closeModal();
     } catch (error) {
       console.error("Error atrapado:", error);
@@ -150,26 +117,46 @@ export function FormCreateTask({ closeModal }: FormCreateTaskProps) {
   };
 
   return (
-    <div style={{ padding: "1rem", fontFamily: "Arial, sans-serif" }}>
-      <h2 style={{ textAlign: "center", marginBottom: "1rem" }}>
-        Crear tu tarea única...
+    <div
+      style={{
+        padding: "10px 0px 120px 0px",
+        fontFamily: "'Inter', sans-serif",
+        backgroundColor: "#f8f9fa",
+        borderRadius: "16px",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        margin: "0",
+      }}
+    >
+      <h2
+        style={{
+          textAlign: "center",
+          marginBottom: "1.5rem",
+          fontSize: "24px",
+          fontWeight: "600",
+          color: "#343a40",
+        }}
+      >
+        🌟 Crea tu tarea perfecta 🌟
       </h2>
+
       <div
         style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          marginBottom: "1rem",
+          marginBottom: "1.5rem",
         }}
       >
         <div
           style={{
             fontSize: "40px",
-            border: "2px solid #ccc",
-            borderRadius: "8px",
+            border: "2px dashed #6c757d",
+            borderRadius: "50%",
             padding: "0.5rem",
             display: "inline-block",
             cursor: "pointer",
+            backgroundColor: "#ffffff",
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
           }}
           onClick={() => setIsIconPickerOpen(true)}
         >
@@ -186,8 +173,9 @@ export function FormCreateTask({ closeModal }: FormCreateTaskProps) {
             maxHeight: "200px",
             overflowY: "scroll",
             padding: "1rem",
-            backgroundColor: "#f5f5f5",
-            borderRadius: "8px",
+            backgroundColor: "#ffffff",
+            borderRadius: "12px",
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
           }}
         >
           {emojiList.map((emoji) => (
@@ -206,9 +194,27 @@ export function FormCreateTask({ closeModal }: FormCreateTaskProps) {
         </div>
       )}
 
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: "1rem" }}>
-          <label htmlFor="title">Nombre:</label>
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "1.5rem",
+        }}
+      >
+        <div>
+          <label
+            htmlFor="title"
+            style={{
+              fontSize: "16px",
+              fontWeight: "500",
+              color: "#495057",
+              marginBottom: "0.5rem",
+              display: "block",
+            }}
+          >
+            Nombre:
+          </label>
           <input
             type="text"
             id="title"
@@ -216,113 +222,217 @@ export function FormCreateTask({ closeModal }: FormCreateTaskProps) {
             value={formData.title}
             onChange={handleInputChange}
             style={{
-              width: "100%",
-              padding: "0.5rem",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
+              width: "80%",
+              padding: "1rem",
+              border: "2px solid #dee2e6",
+              borderRadius: "12px",
+              fontSize: "16px",
+              backgroundColor: "#ffffff",
             }}
           />
         </div>
-        <div style={{ marginBottom: "1rem" }}>
-          <label htmlFor="description">Descripción:</label>
+
+        <div>
+          <label
+            htmlFor="description"
+            style={{
+              fontSize: "16px",
+              fontWeight: "500",
+              color: "#495057",
+              marginBottom: "0.5rem",
+              display: "block",
+            }}
+          >
+            Descripción:
+          </label>
           <textarea
             id="description"
             name="description"
             value={formData.description}
             onChange={handleInputChange}
             style={{
-              width: "100%",
-              padding: "0.5rem",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-              minHeight: "100px",
+              width: "80%",
+              padding: "1rem",
+              border: "2px solid #dee2e6",
+              borderRadius: "12px",
+              fontSize: "16px",
+              minHeight: "120px",
+              backgroundColor: "#ffffff",
             }}
           />
         </div>
-        <div style={{ marginBottom: "1rem" }}>
-          <label>Días:</label>
-          <div>
+
+        <div>
+          <label
+            htmlFor="days"
+            style={{
+              fontSize: "16px",
+              fontWeight: "500",
+              color: "#495057",
+              marginBottom: "0.5rem",
+              display: "block",
+            }}
+          >
+            Días:
+          </label>
+          <div
+            style={{
+              border: "2px solid #dee2e6",
+              borderRadius: "12px",
+              padding: "1rem",
+              backgroundColor: "#ffffff",
+              width: "80%",
+              marginLeft: "1rem",
+            }}
+          >
             {daysOfWeek.map((day) => (
-              <label key={day} style={{ marginRight: "1rem" }}>
+              <label
+                key={day}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  marginBottom: "0.5rem",
+                  cursor: "pointer",
+                }}
+              >
                 <input
                   type="checkbox"
                   value={day}
                   checked={formData.days.includes(day)}
                   onChange={() => handleArrayChange("days", day)}
+                  style={{
+                    width: "18px",
+                    height: "18px",
+                    border: "2px solid #6c757d",
+                    cursor: "pointer",
+                  }}
                 />
-                {day}
+                <span style={{ fontSize: "16px", color: "#495057" }}>
+                  {day}
+                </span>
               </label>
             ))}
           </div>
         </div>
-        <div style={{ marginBottom: "1rem" }}>
-          <label>Fechas:</label>
+
+        <div>
+          <label
+            htmlFor="dueDates"
+            style={{
+              fontSize: "16px",
+              fontWeight: "500",
+              color: "#495057",
+              marginBottom: "0.5rem",
+              display: "block",
+            }}
+          >
+            Fechas:
+          </label>
           <input
             type="date"
             onChange={handleDateChange}
             style={{
-              width: "100%",
-              padding: "0.5rem",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
+              width: "80%",
+              padding: "1rem",
+              border: "2px solid #dee2e6",
+              borderRadius: "12px",
+              fontSize: "16px",
+              backgroundColor: "#ffffff",
             }}
           />
-          <div>
+          <div style={{ marginTop: "0.5rem" }}>
             {formData.dueDates.map((date, index) => (
-              <span key={index} style={{ display: "block" }}>
+              <span
+                key={index}
+                style={{
+                  display: "block",
+                  fontSize: "14px",
+                  color: "#6c757d",
+                }}
+              >
                 {new Date(date).toLocaleDateString()}
               </span>
             ))}
           </div>
         </div>
-        <div style={{ marginBottom: "1rem" }}>
-          <label>Horas:</label>
+
+        <div>
+          <label
+            htmlFor="dueHours"
+            style={{
+              fontSize: "16px",
+              fontWeight: "500",
+              color: "#495057",
+              marginBottom: "0.5rem",
+              display: "block",
+            }}
+          >
+            Horas:
+          </label>
           <input
             type="time"
             onChange={handleHourChange}
             style={{
-              width: "100%",
-              padding: "0.5rem",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
+              width: "80%",
+              padding: "1rem",
+              border: "2px solid #dee2e6",
+              borderRadius: "12px",
+              fontSize: "16px",
+              backgroundColor: "#ffffff",
             }}
           />
-          <div>
+          <div style={{ marginTop: "0.5rem" }}>
             {formData.dueHours.map((hour, index) => (
-              <span key={index} style={{ display: "block" }}>
+              <span
+                key={index}
+                style={{
+                  display: "block",
+                  fontSize: "14px",
+                  color: "#6c757d",
+                }}
+              >
                 {hour}
               </span>
             ))}
           </div>
         </div>
-        <button
-          type="submit"
-          style={{
-            padding: "0.5rem 1rem",
-            backgroundColor: "#007bff",
-            color: "#fff",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
-        >
-          Crear Tarea
-        </button>
-        <button
-          type="button"
-          onClick={closeModal}
-          style={{
-            padding: "0.5rem 1rem",
-            backgroundColor: "#6c757d",
-            color: "#fff",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-            marginLeft: "1rem",
-          }}
-        >
-          Cancelar
-        </button>
+
+        <div style={{ display: "flex", gap: "1rem" }}>
+          <button
+            type="submit"
+            style={{
+              flex: 1,
+              padding: "1rem",
+              backgroundColor: "#007bff",
+              color: "#ffffff",
+              border: "none",
+              borderRadius: "12px",
+              fontSize: "16px",
+              cursor: "pointer",
+              fontWeight: "500",
+            }}
+          >
+            Crear Tarea
+          </button>
+          <button
+            type="button"
+            onClick={closeModal}
+            style={{
+              flex: 1,
+              padding: "1rem",
+              backgroundColor: "#6c757d",
+              color: "#ffffff",
+              border: "none",
+              borderRadius: "12px",
+              fontSize: "16px",
+              cursor: "pointer",
+              fontWeight: "500",
+            }}
+          >
+            Cancelar
+          </button>
+        </div>
       </form>
     </div>
   );

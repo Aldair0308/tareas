@@ -14,7 +14,16 @@ export function TareasFormModal() {
       sheetHeight="95%" // Altura del modal
       animationDuration={600} // Duración de la animación
     >
-      <div style={{ padding: "1rem" }}>
+      <div
+        style={{
+          padding: "1rem",
+          height: "100%", // Asegura que ocupe toda la altura del modal
+          overflowY: "auto", // Habilita el scroll vertical
+          overflowX: "hidden", // Evita el scroll horizontal
+          maxHeight: "calc(95vh - 2rem)", // Altura máxima considerando el padding
+          marginBottom: "2rem", // Agrega espacio inferior
+        }}
+      >
         <FormCreateTask closeModal={() => closeModal(modalId)} />
       </div>
     </ModalAnimation>

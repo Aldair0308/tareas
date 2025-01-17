@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./Diario.css";
 import { GetTareas } from "../../pages/Tareas/GetTareas.ts";
+import { useModal } from "../../components/Modal/UseModal.tsx";
+import { TareasModal } from "./../../pages/Tareas/TareasModal.tsx";
+import { TareasUpdateModal } from "./../../pages/Tareas/TareasUpdateModal.tsx";
 
 interface Tarea {
   _id: string;
@@ -16,6 +19,11 @@ interface Tarea {
 const Diario: React.FC = () => {
   const [tareas, setTareas] = useState<Tarea[]>([]);
   const [diasConTareas, setDiasConTareas] = useState<string[]>([]);
+  const [selectedTask, setSelectedTask] = useState<Tarea | null>(null);
+
+  const { isModalOpen, openModal, closeModal } = useModal();
+  const modalIdView = "tareasModal"; // Modal para detalles
+  const modalIdEdit = "tareasUpdateModal"; // Modal para editar
 
   useEffect(() => {
     const fetchData = async () => {
@@ -74,6 +82,16 @@ const Diario: React.FC = () => {
     }
   };
 
+  const handleCardClick = (tarea: Tarea) => {
+    setSelectedTask(tarea); // Asigna la tarea seleccionada
+    openModal(modalIdView); // Abre el modal de detalles
+  };
+
+  const openEditModal = () => {
+    closeModal(modalIdView); // Cierra el modal de detalles
+    openModal(modalIdEdit); // Abre el modal de edición
+  };
+
   return (
     <div className="diario-container">
       {diasConTareas.map((dia) => {
@@ -113,6 +131,7 @@ const Diario: React.FC = () => {
                       ? "tarea-progress"
                       : ""
                   }`}
+                  onClick={() => handleCardClick(tarea)} // Abre el modal de detalles
                 >
                   <span className="tarea-icon">{tarea.icon || "📌"}</span>
                   <p>{tarea.title}</p>
@@ -133,6 +152,29 @@ const Diario: React.FC = () => {
           </div>
         );
       })}
+
+      {selectedTask && (
+        <TareasModal
+          isOpen={isModalOpen(modalIdView)}
+          closeModal={() => {
+            closeModal(modalIdView);
+            setSelectedTask(null); // Resetea la tarea seleccionada
+          }}
+          task={selectedTask}
+          openEditModal={openEditModal} // Pasa función para abrir el modal de edición
+        />
+      )}
+
+      {selectedTask && (
+        <TareasUpdateModal
+          isOpen={isModalOpen(modalIdEdit)}
+          closeModal={() => {
+            closeModal(modalIdEdit);
+            setSelectedTask(null);
+          }}
+          task={selectedTask}
+        />
+      )}
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ModalAnimation } from "./../../components/Modal/ModalAnimation.tsx";
 import { useModal } from "./../../components/Modal/UseModal.tsx";
+import { emojiList } from "../../services/icons.ts";
 
 export function TareasUpdateModal({ task }) {
   const { closeModal, isModalOpen } = useModal();
@@ -16,42 +17,6 @@ export function TareasUpdateModal({ task }) {
     "viernes",
     "sábado",
     "domingo",
-  ];
-
-  const emojiList = [
-    "✨",
-    "🌟",
-    "🔥",
-    "💪",
-    "🎉",
-    "🎶",
-    "🚀",
-    "☀️",
-    "🍕",
-    "🎨",
-    "📚",
-    "🧘‍♂️",
-    "🏃‍♂️",
-    "⚽",
-    "🎵",
-    "📅",
-    "🛠️",
-    "🏋️‍♂️",
-    "🥗",
-    "☕",
-    "🚴‍♂️",
-    "💼",
-    "🎮",
-    "📷",
-    "🧺",
-    "👕",
-    "👓",
-    "🛁",
-    "🛏️",
-    "⌨️",
-    "💻",
-    "❤️",
-    "💑",
   ];
 
   useEffect(() => {
@@ -151,168 +116,366 @@ export function TareasUpdateModal({ task }) {
       sheetHeight="93%"
       animationDuration={600}
     >
-      <div style={{ padding: "1rem", backgroundColor: "#f9f9f9" }}>
-        <h2 style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-          Editar Tarea
-        </h2>
-
+      <div
+        style={{
+          padding: "0px 0px 10px 0px",
+          height: "90%", // Asegura que ocupe toda la altura del modal
+          overflowY: "auto", // Habilita el scroll vertical
+          overflowX: "hidden", // Evita el scroll horizontal
+          maxHeight: "calc(95vh - 2rem)", // Altura máxima considerando el padding
+          marginBottom: "2rem", // Agrega espacio inferior
+        }}
+      >
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginBottom: "1rem",
+            padding: "1rem 0 120px 0",
+            fontFamily: "'Inter', sans-serif",
+            backgroundColor: "#f8f9fa",
+            borderRadius: "16px",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+            margin: "0",
           }}
         >
-          <div
+          <h2
             style={{
-              fontSize: "40px",
-              border: "2px solid #ccc",
-              borderRadius: "8px",
-              padding: "0.5rem",
-              display: "inline-block",
-              cursor: "pointer",
-            }}
-            onClick={() => setIsIconPickerOpen(true)}
-          >
-            {formData.icon || "✨"}
-          </div>
-        </div>
-
-        {isIconPickerOpen && (
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(40px, 1fr))",
-              gap: "10px",
-              maxHeight: "200px",
-              overflowY: "scroll",
-              padding: "1rem",
-              backgroundColor: "#f5f5f5",
-              borderRadius: "8px",
+              textAlign: "center",
+              marginBottom: "1.5rem",
+              fontSize: "24px",
+              fontWeight: "600",
+              color: "#343a40",
             }}
           >
-            {emojiList.map((emoji) => (
-              <div
-                key={emoji}
-                style={{
-                  fontSize: "30px",
-                  textAlign: "center",
-                  cursor: "pointer",
-                }}
-                onClick={() => handleIconSelect(emoji)}
-              >
-                {emoji}
-              </div>
-            ))}
-          </div>
-        )}
+            Editar Tarea
+          </h2>
 
-        <form
-          onSubmit={handleSubmit}
-          style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
-        >
-          <div>
-            <label htmlFor="title">Título:</label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              value={formData.title || ""}
-              onChange={handleInputChange}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: "1.5rem",
+            }}
+          >
+            <div
               style={{
-                width: "100%",
+                fontSize: "40px",
+                border: "2px dashed #6c757d",
+                borderRadius: "50%",
                 padding: "0.5rem",
-                border: "1px solid #ccc",
-                borderRadius: "4px",
+                display: "inline-block",
+                cursor: "pointer",
+                backgroundColor: "#ffffff",
+                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
               }}
-            />
-          </div>
-          <div>
-            <label htmlFor="description">Descripción:</label>
-            <textarea
-              id="description"
-              name="description"
-              value={formData.description || ""}
-              onChange={handleInputChange}
-              style={{
-                width: "100%",
-                padding: "0.5rem",
-                border: "1px solid #ccc",
-                borderRadius: "4px",
-                minHeight: "100px",
-              }}
-            />
-          </div>
-          <div>
-            <label>Días:</label>
-            <div>
-              {daysOfWeek.map((day) => (
-                <label key={day} style={{ marginRight: "1rem" }}>
-                  <input
-                    type="checkbox"
-                    value={day}
-                    checked={formData.days?.includes(day)}
-                    onChange={() => handleArrayChange("days", day)}
-                  />
-                  {day}
-                </label>
-              ))}
+              onClick={() => setIsIconPickerOpen(true)}
+            >
+              {formData.icon || "✨"}
             </div>
           </div>
-          <div>
-            <label>Estado:</label>
-            <select
-              name="status"
-              value={formData.status || "pending"}
-              onChange={handleInputChange}
+
+          {isIconPickerOpen && (
+            <div
               style={{
-                width: "100%",
-                padding: "0.5rem",
-                border: "1px solid #ccc",
-                borderRadius: "4px",
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(40px, 1fr))",
+                gap: "10px",
+                maxHeight: "200px",
+                overflowY: "scroll",
+                padding: "1rem",
+                backgroundColor: "#ffffff",
+                borderRadius: "12px",
+                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
               }}
             >
-              <option value="pending">Pendiente</option>
-              <option value="in-progress">En Progreso</option>
-              <option value="completed">Completada</option>
-              <option value="archived">Archivada</option>
-            </select>
-          </div>
-          <div>
-            <label>Fechas:</label>
-            <input
-              type="date"
-              onChange={handleDateChange}
-              style={{
-                width: "100%",
-                padding: "0.5rem",
-                border: "1px solid #ccc",
-                borderRadius: "4px",
-              }}
-            />
-            <div>
-              {formData.dueDates?.map((date, index) => (
-                <span key={index} style={{ display: "block" }}>
-                  {new Date(date).toLocaleDateString()}
-                </span>
+              {emojiList.map((emoji) => (
+                <div
+                  key={emoji}
+                  style={{
+                    fontSize: "30px",
+                    textAlign: "center",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => handleIconSelect(emoji)}
+                >
+                  {emoji}
+                </div>
               ))}
             </div>
-          </div>
-          <button
-            type="submit"
+          )}
+
+          <form
+            onSubmit={handleSubmit}
             style={{
-              padding: "0.75rem",
-              backgroundColor: "#007bff",
-              color: "#fff",
-              border: "none",
-              borderRadius: "4px",
-              cursor: "pointer",
+              display: "flex",
+              flexDirection: "column",
+              gap: "1.5rem",
+              alignItems: "center",
             }}
           >
-            Guardar Cambios
-          </button>
-        </form>
+            <div style={{ width: "80%" }}>
+              <label
+                htmlFor="title"
+                style={{
+                  fontSize: "16px",
+                  fontWeight: "500",
+                  color: "#495057",
+                  marginBottom: "0.5rem",
+                  display: "block",
+                }}
+              >
+                Título:
+              </label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={formData.title || ""}
+                onChange={handleInputChange}
+                style={{
+                  width: "90%",
+                  padding: "1rem",
+                  border: "2px solid #dee2e6",
+                  borderRadius: "12px",
+                  fontSize: "16px",
+                  backgroundColor: "#ffffff",
+                }}
+              />
+            </div>
+
+            <div style={{ width: "80%" }}>
+              <label
+                htmlFor="description"
+                style={{
+                  fontSize: "16px",
+                  fontWeight: "500",
+                  color: "#495057",
+                  marginBottom: "0.5rem",
+                  display: "block",
+                }}
+              >
+                Descripción:
+              </label>
+              <textarea
+                id="description"
+                name="description"
+                value={formData.description || ""}
+                onChange={handleInputChange}
+                style={{
+                  width: "90%",
+                  padding: "1rem",
+                  border: "2px solid #dee2e6",
+                  borderRadius: "12px",
+                  fontSize: "16px",
+                  minHeight: "120px",
+                  backgroundColor: "#ffffff",
+                }}
+              />
+            </div>
+
+            <div style={{ width: "80%" }}>
+              <label
+                htmlFor="status"
+                style={{
+                  fontSize: "16px",
+                  fontWeight: "500",
+                  color: "#495057",
+                  marginBottom: "0.5rem",
+                  display: "block",
+                }}
+              >
+                Estado:
+              </label>
+              <select
+                name="status"
+                value={formData.status || "pending"}
+                onChange={handleInputChange}
+                style={{
+                  width: "100%",
+                  padding: "1rem",
+                  border: "2px solid #dee2e6",
+                  borderRadius: "12px",
+                  fontSize: "16px",
+                  backgroundColor: "#ffffff",
+                }}
+              >
+                <option value="pending">Pendiente</option>
+                <option value="in-progress">En Progreso</option>
+                <option value="completed">Completada</option>
+                <option value="archived">Archivada</option>
+              </select>
+            </div>
+
+            <div style={{ width: "80%" }}>
+              <label
+                htmlFor="days"
+                style={{
+                  fontSize: "16px",
+                  fontWeight: "500",
+                  color: "#495057",
+                  marginBottom: "0.5rem",
+                  display: "block",
+                }}
+              >
+                Días:
+              </label>
+              <div
+                style={{
+                  border: "2px solid #dee2e6",
+                  borderRadius: "12px",
+                  padding: "1rem",
+                  backgroundColor: "#ffffff",
+                }}
+              >
+                {daysOfWeek.map((day) => (
+                  <label
+                    key={day}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                      marginBottom: "0.5rem",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      value={day}
+                      checked={formData.days?.includes(day)}
+                      onChange={() => handleArrayChange("days", day)}
+                      style={{
+                        width: "18px",
+                        height: "18px",
+                        border: "2px solid #6c757d",
+                        cursor: "pointer",
+                      }}
+                    />
+                    <span style={{ fontSize: "16px", color: "#495057" }}>
+                      {day}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ width: "80%" }}>
+              <label
+                htmlFor="dueDates"
+                style={{
+                  fontSize: "16px",
+                  fontWeight: "500",
+                  color: "#495057",
+                  marginBottom: "0.5rem",
+                  display: "block",
+                }}
+              >
+                Fechas:
+              </label>
+              <input
+                type="date"
+                onChange={handleDateChange}
+                style={{
+                  width: "90%",
+                  padding: "1rem",
+                  border: "2px solid #dee2e6",
+                  borderRadius: "12px",
+                  fontSize: "16px",
+                  backgroundColor: "#ffffff",
+                }}
+              />
+              <div style={{ marginTop: "0.5rem" }}>
+                {formData.dueDates?.map((date, index) => (
+                  <span
+                    key={index}
+                    style={{
+                      display: "block",
+                      fontSize: "14px",
+                      color: "#6c757d",
+                    }}
+                  >
+                    {new Date(date).toLocaleDateString()}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ width: "80%" }}>
+              <label
+                htmlFor="dueHours"
+                style={{
+                  fontSize: "16px",
+                  fontWeight: "500",
+                  color: "#495057",
+                  marginBottom: "0.5rem",
+                  display: "block",
+                }}
+              >
+                Horas:
+              </label>
+              <input
+                type="time"
+                onChange={handleDateChange}
+                style={{
+                  width: "90%",
+                  padding: "1rem",
+                  border: "2px solid #dee2e6",
+                  borderRadius: "12px",
+                  fontSize: "16px",
+                  backgroundColor: "#ffffff",
+                }}
+              />
+              <div style={{ marginTop: "0.5rem" }}>
+                {formData.dueHours?.map((hour, index) => (
+                  <span
+                    key={index}
+                    style={{
+                      display: "block",
+                      fontSize: "14px",
+                      color: "#6c757d",
+                    }}
+                  >
+                    {hour}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ display: "flex", gap: "1rem", width: "80%" }}>
+              <button
+                type="submit"
+                style={{
+                  flex: 1,
+                  padding: "1rem",
+                  backgroundColor: "#007bff",
+                  color: "#ffffff",
+                  border: "none",
+                  borderRadius: "12px",
+                  fontSize: "16px",
+                  cursor: "pointer",
+                  fontWeight: "500",
+                }}
+              >
+                Guardar Cambios
+              </button>
+              <button
+                type="button"
+                onClick={() => closeModal(modalId)}
+                style={{
+                  flex: 1,
+                  padding: "1rem",
+                  backgroundColor: "#dc3545",
+                  color: "#ffffff",
+                  border: "none",
+                  borderRadius: "12px",
+                  fontSize: "16px",
+                  cursor: "pointer",
+                  fontWeight: "500",
+                }}
+              >
+                Cancelar
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </ModalAnimation>
   );
