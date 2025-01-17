@@ -50,6 +50,30 @@ const Diario: React.FC = () => {
     return fecha.toLocaleDateString("es-ES", opciones);
   };
 
+  const archiveTasks = async (tasksToArchive: Tarea[]) => {
+    try {
+      const requests = tasksToArchive.map((task) =>
+        fetch(
+          `https://api-tareas-production.up.railway.app/api/tasks/${task._id}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ status: "archived" }),
+          }
+        )
+      );
+      await Promise.all(requests);
+      alert("Tareas archivadas exitosamente");
+      // Refetch tareas después de archivar
+      const updatedTareas = await GetTareas();
+      setTareas(updatedTareas);
+    } catch (error) {
+      console.error("Error al archivar tareas:", error);
+    }
+  };
+
   return (
     <div className="diario-container">
       {diasConTareas.map((dia) => {
@@ -63,6 +87,10 @@ const Diario: React.FC = () => {
         });
         const numeroDia = fecha.getDate();
         const mes = fecha.toLocaleDateString("es-ES", { month: "long" });
+
+        const allCompleted = tareasDelDia.every(
+          (tarea) => tarea.status === "completed"
+        );
 
         return (
           <div key={dia} className="dia-section">
@@ -94,6 +122,14 @@ const Diario: React.FC = () => {
                 </div>
               ))}
             </div>
+            {allCompleted && tareasDelDia.length > 0 && (
+              <button
+                className="archive-button"
+                onClick={() => archiveTasks(tareasDelDia)}
+              >
+                Archivar Tareas
+              </button>
+            )}
           </div>
         );
       })}
